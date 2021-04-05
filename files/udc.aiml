@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml>
+  
+
+<category>
+    <pattern>hi</pattern>
+    <template>Hello, what is your name?</template>
+</category>
+
+
+<category>
+    <pattern>hello</pattern>
+    <template><srai>hi</srai></template>
+</category>
+
+
+<category>
+    <pattern>MY NAME IS *</pattern>
+    <template>
+        Hello <set name="firstname"><star /></set>, I am <bot name="name" />. Do you like sports or movies?
+    </template>
+</category>
+
+<category>
+    <pattern>^</pattern>
+    <that>^ YOUR NAME ^</that>
+    <template><srai>my name is <star /></srai></template>
+</category>
+
+<category>
+    <pattern>Who am I</pattern>
+    <template>
+        <condition name="firstname">
+            <li value="*">Your name is <get name="firstname" /></li>
+            <li>Not sure, you haven't told me.</li>
+        </condition>
+    </template>
+</category>
+
+<category>
+    <pattern>^ sports ^</pattern>
+    <template>
+        <think><set name="topic">SPORTS</set></think>
+        <condition name="firstname">
+            <li value="*">My favorite sports are baseball, soccer, and football.</li>
+            <li>I would love to talk about sports, but first tell me what is your name?</li>
+        </condition>
+    </template>
+</category>
+
+<category>
+    <pattern>^ sport ^</pattern>
+    <template><srai>sports</srai></template>
+</category>
+
+<category>
+    <pattern>^ movie ^</pattern>
+    <template>
+        <think><set name="topic">MOVIES</set></think>
+        <condition name="firstname">
+            <li value="*">I enjoy hearing about movies! Which one do you like?</li>
+            <li>Movies are awesome! But first tell me what is your name?</li>
+        </condition>
+    </template>
+</category>
+
+<category>
+    <pattern>^ movies ^</pattern>
+    <template><srai>movie</srai></template>
+</category>
+
+<category>
+    <pattern>^ film ^</pattern>
+    <template><srai>movie</srai></template>
+</category>
+
+<category>
+    <pattern>^ theater ^</pattern>
+    <template><srai>movie</srai></template>
+</category>
+
+
+<category>
+    <pattern>^</pattern>
+    <template>
+        <condition name="firstname">
+            <li value="*">
+                <random>
+                    <li>Not sure I understand. Do you like movies or sports, <get name="firstname" />?</li>
+                    <li>How does that make you feel, <get name="firstname" />?</li>
+                    <li>Do you think that's a healthy thought, <get name="firstname" />?</li>
+                    <li>And why do you feel this way, <get name="firstname" />?</li>
+                </random>
+            </li>
+            <li>Not sure I understand. Can you tell me your name?</li>
+        </condition>
+    </template>
+</category>
+
+<topic name="SPORTS">
+    <category>
+        <pattern>MY NAME IS *</pattern>
+        <template>
+            Hello <set name="firstname"><star /></set>, I am <bot name="name" />. <srai>sports</srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern>^ baseball ^</pattern>
+        <template>Baseball is great to watch. What's your favorite team?</template>
+    </category>
+
+    <category>
+        <pattern>^</pattern>
+        <that>WHAT IS YOUR FAVORITE TEAM</that>
+        <template>I am a fan of the baseball team, <star /> as well!</template>
+    </category>
+    
+    <category>
+        <pattern>^ football ^</pattern>
+        <template>Football is so much fun. How many games do you watch a week?</template>
+    </category>
+    
+    <category>
+        <pattern>^ <set>number</set> ^</pattern>
+        <that>HOW MANY GAMES DO YOU WATCH A WEEK</that>
+        <template>You watch <star index="2" /> games a week. Do you have any gameday rituals?</template>
+    </category>
+    
+    <category>
+        <pattern>^</pattern>
+        <that>DO YOU HAVE ANY GAMEDAY RITUALS</that>
+        <template>Well it was fun talking about football. Do you like baseball or soccer?</template>
+    </category>
+    
+    <category>
+        <pattern>^ soccer ^</pattern>
+        <template>I love talking about soccer. Which position do you play?</template>
+    </category>
+    
+    <category>
+        <pattern>^ <set>soccerpositions</set> ^</pattern>
+        <that>WHICH POSITION DO YOU PLAY</that>
+        <template>
+            <think><set name="soccerpositionuser"><star index="2" /></set></think>
+            <condition name="soccerpositionuser">
+                <li value="striker">So you <get name="firstname" />, are a goal scorer! </li>
+                <li value="forward">So you <get name="firstname" />, are a goal scorer! </li>
+                <li value="goalkeeper">I can see <get name="firstname" /> blocking all the shots! </li>
+                <li value="defender">No one can get past <get name="firstname" />! </li>
+                <li value="midfielder">Always making an impact on the game, <get name="firstname" /> cannot be stopped! </li>
+                <li value="midfield">Always making an impact on the game, <get name="firstname" /> cannot be stopped! </li>
+            </condition>
+            How many years have you played?
+        </template>
+    </category>
+
+    <category>
+        <pattern><set>number</set></pattern>
+        <that>^ HOW MANY YEARS HAVE YOU PLAYED</that>
+        <template>
+            <think><set name="socceryears"><star /></set></think>
+            Ah I see you've played for <get name="socceryears" /> years. Are you good?
+        </template>
+    </category>
+
+    <category>
+        <pattern>YES</pattern>
+        <that>^ ARE YOU GOOD</that>
+        <template>
+            I could always tell that <get name="firstname" /> was a pro!
+            <think><set name="soccergooduser">good</set></think>
+            <srai>SUMMARIZE SOCCER ABILITIES</srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern>NO</pattern>
+        <that>^ ARE YOU GOOD</that>
+        <template>
+            I can tell that <get name="firstname" /> is being modest!
+            <think><set name="soccergooduser">bad</set></think>
+            <srai>SUMMARIZE SOCCER ABILITIES</srai>
+        </template>
+    </category>
+
+    <category>
+        <pattern>SUMMARIZE SOCCER ABILITIES</pattern>
+        <template>
+            So you are a <get name="soccerpositionuser" /> who has played for <get name="socceryears" /> and consider yourself 
+            <condition name="soccergooduser">
+                <li value="good"> a good player. </li>
+                <li value="bad"> an alright player. </li>
+                <li>a soccer fan </li>
+            </condition>
+            That is great to know about you!
+        </template>
+    </category>
+    
+    <category>
+        <pattern>^</pattern>
+        <template>
+            <think><set name="topic" /></think>
+            Enough about sports, what else do you like? Movies?
+        </template>
+    </category>
+</topic>
+
+<topic name="MOVIES">
+    <category>
+        <pattern>MY NAME IS *</pattern>
+        <template>
+            Hello <set name="firstname"><star /></set>, I am <bot name="name" />. <srai>movies</srai>
+        </template>
+    </category>
+    
+    <category>
+        <pattern>^ I LIKE ^</pattern>
+        <template>What more can you tell me about <star index="2" />?</template>
+    </category>
+
+    <category>
+        <pattern>^ I AM WATCHING ^</pattern>
+        <template><srai>DO YOU LIKE <star index="2" /></srai></template>
+    </category>
+
+    <category>
+        <pattern>^ I HAVE YOU SEEN ^</pattern>
+        <template><srai>DO YOU LIKE <star index="2" /></srai></template>
+    </category>
+
+    <category>
+        <pattern>^ I RECOMMEND ^</pattern>
+        <template><srai>DO YOU LIKE <star index="2" /></srai></template>
+    </category>
+    
+    <category>
+        <pattern>^</pattern>
+        <that>^ WHICH ONE DO YOU LIKE</that>
+        <template><srai>I LIKE <star /></srai></template>
+    </category>
+
+    <category>
+        <pattern>^</pattern>
+        <that>WHAT MORE CAN YOU TELL ME ABOUT ^</that>
+        <template>I understand what you mean by <input />. Do you think the reviewers agree?</template>
+    </category>
+    
+    <category>
+        <pattern>YES</pattern>
+        <that>^ THE REVIEWERS AGREE</that>
+        <template>Interesting. I should look it up some time. Have you been to the theaters lately?</template>
+    </category>
+
+    <category>
+        <pattern>NO</pattern>
+        <that>^ THE REVIEWERS AGREE</that>
+        <template>The reviewers have their own agenda. Have you been to the theaters lately?</template>
+    </category>
+
+    <category>
+        <pattern>YES</pattern>
+        <that>^ BEEN TO THE THEATERS LATELY</that>
+        <template>Awesome. What movie did you see in theaters?</template>
+    </category>
+
+    <category>
+        <pattern>NO</pattern>
+        <that>^ BEEN TO THE THEATERS LATELY</that>
+        <template>It's hard to do that right now because of the pandemic. Do you have a streaming service?</template>
+    </category>
+    
+    <category>
+        <pattern>^</pattern>
+        <that>^ DID YOU SEE IN THEATERS</that>
+        <template>Nice, what are your thoughts about seeing <star /> in theaters instead of at home?</template>
+    </category>
+
+    <category>
+        <pattern>^</pattern>
+        <that>^ HAVE A STREAMING SERVICE</that>
+        <template>
+            <map name="streaming"><star /></map>
+        </template>
+    </category>
+</topic>
+
+
+</aiml>
