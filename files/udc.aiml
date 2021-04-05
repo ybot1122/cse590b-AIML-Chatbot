@@ -90,6 +90,9 @@
                     <li>How does that make you feel, <get name="firstname" />?</li>
                     <li>Do you think that's a healthy thought, <get name="firstname" />?</li>
                     <li>And why do you feel this way, <get name="firstname" />?</li>
+                    <li>Can you explain these feelings a little bit more, <get name="firstname" />?</li>
+                    <li>Let's focus on why you might say this, <get name="firstname" />...</li>
+                    <li>Interesting, and why do you think that is, <get name="firstname" />?</li>
                 </random>
             </li>
             <li>Not sure I understand. Can you tell me your name?</li>
