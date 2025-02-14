@@ -1,0 +1,1 @@
+There are two chatbots in this project. In the `aiml_chatbot\` directory you can run a chatbot that learns from an AIML file. In `final_project\` you can run a more fully-featured chatbot that uses transformers, named entity recognition, and sentiment analysis. Start the `debugserver.py` script.
